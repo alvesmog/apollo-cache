@@ -1,0 +1,118 @@
+import "./App.css";
+import { useState } from "react";
+import { Todo } from "./components";
+import {
+  gql,
+  useQuery,
+  InMemoryCache,
+  ApolloClient,
+  makeVar,
+  useReactiveVar,
+} from "@apollo/client";
+
+function App() {
+  const [currentAdd, setCurrentAdd] = useState();
+  const [todos, setTodos] = useState([]);
+
+  const GET_BOOKS = gql`
+    query GetBooks {
+      books {
+        title
+        author
+      }
+    }
+  `;
+
+  const typeDefs = gql`
+    extend type Query {
+      GetBook(title: String!): Book!
+    }
+  `;
+
+  const GET_BOOK = gql`
+    query GetBook($title: String!) {
+      Book(title: $title)
+    }
+  `;
+
+  //sconst booksArray = makeVar();
+
+  const client = new ApolloClient({
+    uri: "http://localhost:4000/",
+    cache: new InMemoryCache({
+      typePolicies: {
+        /*Book: {
+                  fields: {
+            title: {
+              read(title) {
+                return title.toUpperCase();
+              },
+            },
+          }, 
+        },*/
+     /*    Query: {
+          fields: {
+            read() {
+              return makeVar();
+            },
+          },
+        }, */
+      },
+    }),
+    //typeDefs,
+  });
+
+  const test = client.cache.makeVar();
+  const kkkk = test();
+  console.log(kkkk)
+  const executeLocalQuery = () => {
+    /* const test = client.cache.readQuery({
+      query: gql`
+        query GetBook($title: String!) {
+          Book(title: $title) {
+            author
+          }
+        }
+      `,
+      variables: {
+        title: "The Awakening",
+      },
+    });
+
+    console.log({ test, client }); */
+  };
+
+  //const { loading, error, data } = client.query({ query: GET_BOOKS });
+
+  return (
+    <div className="App">
+      
+      <div className="form">
+        <input
+          value={currentAdd}
+          onChange={(e) => {
+            setCurrentAdd(e.target.value);
+          }}
+          className="input"
+        ></input>
+        <button
+          onClick={() => {
+            executeLocalQuery();
+            setTodos([...todos, currentAdd]);
+          }}
+          className="btn"
+        >
+          Add TO-DO
+        </button>
+      </div>
+      <div className="todos-list">
+        {todos &&
+          todos.map((todo) => {
+            return <Todo description={todo} />;
+          })}
+      </div>
+    </div>
+  );
+}
+
+export default App;

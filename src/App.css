@@ -1,0 +1,53 @@
+body {
+  background-color: rgb(34, 34, 60);
+  color: rgb(199, 198, 19) !important;
+}
+
+.content-container {
+  height: inherit;
+  padding: 3rem;
+  width: 100% !important;
+}
+
+.server-selection-checkbox {
+  margin-bottom: 20px;
+}
+
+.server-selection-checkbox > label {
+  color: rgba(158, 158, 157, 0.95) !important;
+  font-size: 17px !important;
+}
+
+.ui.toggle.checkbox .box:before,
+.ui.toggle.checkbox label:before {
+  background: rgba(112, 104, 104, 0.788) !important;
+}
+
+.ui.toggle.checkbox input:focus:checked~.box, .ui.toggle.checkbox input:focus:checked~label {
+    color: white !important;
+    font-weight: 700 !important;
+}
+
+.ui.toggle.checkbox input:checked ~ .box,
+.ui.toggle.checkbox input:checked ~ label {
+  color: white !important;
+  font-weight: 700 !important;
+  font-size: 17px;
+}
+
+.content-grid {
+  height: 100%;
+}
+
+.card-header {
+  display: flex !important;
+  justify-content: space-between;
+}
+
+.ui.card>.content {
+  background: #dddddd;
+}
+
+.ui.card>.extra {
+  background: #ffffff;
+}
